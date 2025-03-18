@@ -1,7 +1,6 @@
 # State
 
-To truly understand how **State** works, you must understand some basic Ethereum concepts.\
-
+To truly understand how **State** works, you must understand some basic Ethereum concepts.\\
 
 We highly recommend reading the [**State in Ethereum guide**](../../concepts/state-in-ethereum.md).
 
@@ -74,11 +73,12 @@ type Object struct {
 ```
 
 The implementation for the Merkle trie is in the _state/immutable-trie_ folder.\
-_state/immutable-trie/state.go_ implements the **State** interface.
+&#xNAN;_&#x73;tate/immutable-trie/state.go_ implements the **State** interface.
 
 _state/immutable-trie/trie.go_ is the main Merkle trie object. It represents an optimized version of the Merkle trie, which reuses as much memory as possible.
 
 ### Executor
+
 _state/executor.go_ includes all the information needed for the EVMBuilder Edge to decide how a block changes the current state. The implementation of _ProcessBlock_ is located here.
 
 The _apply_ method does the actual state transition. The executor calls the EVM.
@@ -182,8 +182,7 @@ func init() {
 }
 ```
 
-The core logic that powers the EVM is the _Run_ loop.\
-
+The core logic that powers the EVM is the _Run_ loop.\\
 
 This is the main entry point for the EVM. It does a loop and checks the current opcode, fetches the instruction, checks if it can be executed, consumes gas and executes the instruction until it either fails or stops.
 

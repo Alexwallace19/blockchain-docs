@@ -5,7 +5,7 @@
 
 The below guide will instruct you on how to set up a EVMBuilder Edge network on a cloud provider for a production setup of your testnet or mainnet.
 
-If you would like to setup a EVMBuilder Edge network locally to quickly test the `z-edge` before doing a production-like setup, please refer to [Local Setup](local-setup.md)
+If you would like to setup a EVMBuilder Edge network locally to quickly test the `z-edge` before doing a production-like setup, please refer to [Local Setup](../../Blockchain%20mainnet/get-started/local-setup.md)
 {% endhint %}
 
 ### Requirements
@@ -19,6 +19,7 @@ Depending on your choice of cloud provider, you may set up connectivity and rule
 As the only part of the `z-edge` that needs to be exposed to other VMs is the libp2p server, simply allowing all communication between VMs on the default libp2p port `1478` is enough.
 
 ### Overview
+
 In this guide, our goal is to establish a working `z-edge` blockchain network working with [IBFT consensus protocol](https://github.com/ethereum/EIPs/issues/650). The blockchain network will consist of 4 nodes of whom all 4 are validator nodes, and as such are eligible for both proposing block, and validating blocks that came from other proposers. Each of the 4 nodes will run on their own VM, as the idea of this guide is to give you a fully functional EVMBuilder Edge network while keeping the validator keys private to ensure a trustless network setup.
 
 To achieve that, we will guide you through 4 easy steps:
@@ -42,19 +43,19 @@ The minimum recommended number of nodes for achieving a BFT guarantee is 4 - sin
 To get up and running with EVMBuilder Edge, you need to initialize the data folders, on each node:
 
 ```
-node-1> z-edge secrets init --data-dir data-dir
+node-1> polygon-edge secrets init --data-dir data-dir
 ```
 
 ```
-node-2> z-edge secrets init --data-dir data-dir
+node-2> polygon-edge secrets init --data-dir data-dir
 ```
 
 ```
-node-3> z-edge secrets init --data-dir data-dir
+node-3> polygon-edge secrets init --data-dir data-dir
 ```
 
 ```
-node-4> zz-edge secrets init --data-dir data-dir
+node-4> polygon-edge secrets init --data-dir data-dir
 ```
 
 Each of these commands will print the [node ID](https://docs.libp2p.io/concepts/peer-id/). You will need that information for the next step.
@@ -118,7 +119,7 @@ Node ID              = 16Uiu2HAmVZnsqvTwuzC9Jd4iycpdnHdyVZJZTpVC8QuRSKmZdUrf
 Given that you have received all 4 of the validators' public keys, you can run the following command to generate the `genesis.json`
 
 ```
-zz-edge genesis --consensus ibft --ibft-validator=0xC12bB5d97A35c6919aC77C709d55F6aa60436900 --ibft-validator=<2nd_validator_pubkey> --ibft-validator=<3rd_validator_pubkey> --ibft-validator=<4th_validator_pubkey> --bootnode=<first_bootnode_multiaddr_connection_string_from_step_2> --bootnode <second_bootnode_multiaddr_connection_string_from_step_2> --bootnode <optionally_more_bootnodes>
+polygon-edge genesis --consensus ibft --ibft-validator=0xC12bB5d97A35c6919aC77C709d55F6aa60436900 --ibft-validator=<2nd_validator_pubkey> --ibft-validator=<3rd_validator_pubkey> --ibft-validator=<4th_validator_pubkey> --bootnode=<first_bootnode_multiaddr_connection_string_from_step_2> --bootnode <second_bootnode_multiaddr_connection_string_from_step_2> --bootnode <optionally_more_bootnodes>
 ```
 
 What this command does:
@@ -143,8 +144,6 @@ For example, if we would like to premine 1000 ETH to address `0x3956E90e632AEbBF
 {% endhint %}
 
 {% hint style="warning" %}
-
-
 **SET THE BLOCK GAS LIMIT**
 
 The default gas limit for each block is `5242880`. This value is written in the genesis file, but you may want to increase / decrease it.
@@ -171,8 +170,6 @@ To do so, you can use the flag `--block-gas-limit` followed by the desired value
 {% endhint %}
 
 {% hint style="warning" %}
-
-
 **SET SYSTEM FILE DESCRIPTOR LIMIT**
 
 The default file descriptor limit ( maximum number of open files ) on some operating systems is pretty small. If the nodes are expected to have high throughput, you might consider increasing this limit on the OS level.
@@ -304,17 +301,17 @@ Most cloud providers don't expose the IP addresses (especially public ones) as a
 
 To allow the nodes to connect to each other in this case you would need to listen on the `0.0.0.0` IP address to bind on all interfaces, but you would still need to specify the IP address or DNS address which other nodes can use to connect to your instance. This is achieved either by using the `--nat` or `--dns` argument where you can specify your external IP or DNS address respectively.
 
-**Example**[**​**]
+**Example**\[**​**]
 
 The associated IP address that you wish to listen on is `192.0.2.1`, but it is not directly bound to any of your network interfaces.
 
 To allow the nodes to connect you would pass the following parameters:
 
-`z-edge ... --libp2p 0.0.0.0:10001 --nat 192.0.2.1`
+`polygon-edge ... --libp2p 0.0.0.0:10001 --nat 192.0.2.1`
 
 Or, if you wish to specify a DNS address `dns/example.io`, pass the following parameters:
 
-`z-edge ... --libp2p 0.0.0.0:10001 --dns dns/example.io`
+`polygon-edge ... --libp2p 0.0.0.0:10001 --dns dns/example.io`
 
 This would make your node listen on all interfaces, but also make it aware that the clients are connecting to it through the specified `--nat` or `--dns` address.
 {% endhint %}
@@ -322,25 +319,25 @@ This would make your node listen on all interfaces, but also make it aware that 
 To run the **first** client:
 
 ```
-node-1> zz-edge server --data-dir ./data-dir --chain genesis.json  --libp2p 0.0.0.0:1478 --nat <public_or_private_ip> --seal
+node-1> polygon-edge server --data-dir ./data-dir --chain genesis.json  --libp2p 0.0.0.0:1478 --nat <public_or_private_ip> --seal
 ```
 
 To run the **second** client:
 
 ```
-node-2> z-edge server --data-dir ./data-dir --chain genesis.json --libp2p 0.0.0.0:1478 --nat <public_or_private_ip> --seal
+node-2> polygon-edge server --data-dir ./data-dir --chain genesis.json --libp2p 0.0.0.0:1478 --nat <public_or_private_ip> --seal
 ```
 
 To run the **third** client:
 
 ```
-node-3> z-edge server --data-dir ./data-dir --chain genesis.json --libp2p 0.0.0.0:1478 --nat <public_or_private_ip> --seal
+node-3> polygon-edge server --data-dir ./data-dir --chain genesis.json --libp2p 0.0.0.0:1478 --nat <public_or_private_ip> --seal
 ```
 
 To run the **fourth** client:
 
 ```
-node-4> z-edge server --data-dir ./data-dir --chain genesis.json --libp2p 0.0.0.0:1478 --nat <public_or_private_ip> --seal
+node-4> polygon-edge server --data-dir ./data-dir --chain genesis.json --libp2p 0.0.0.0:1478 --nat <public_or_private_ip> --seal
 ```
 
 After running the previous commands, you have set up a 4 node EVMBuilder Edge network, capable of sealing blocks and recovering from node failurfailure.
@@ -351,16 +348,16 @@ After running the previous commands, you have set up a 4 node EVMBuilder Edge ne
 Instead of specifying all configuration parameters as CLI arguments, the Client can also be started using a config file by executing the following command:
 
 ```
-z-edge server --config <config_file_path>
+polygon-edge server --config <config_file_path>
 ```
 
 Example :
 
 ```
-zz-edge server --config ./test/config-node1.json
+polygon-edge server --config ./test/config-node1.json
 ```
 
-Currently, we only support `json` based configuration file, sample config file can be found [here]
+Currently, we only support `json` based configuration file, sample config file can be found \[here]
 {% endhint %}
 
 {% hint style="warning" %}
@@ -369,7 +366,7 @@ Currently, we only support `json` based configuration file, sample config file c
 A Non-validator will always sync the latest blocks received from the validator node, you can start a non-validator node by running the following command.
 
 ```
-z-edge server --data-dir <directory_path> --chain <genesis_filename>  --libp2p <IPAddress:PortNo> --nat <public_or_private_ip>
+polygon-edge server --data-dir <directory_path> --chain <genesis_filename>  --libp2p <IPAddress:PortNo> --nat <public_or_private_ip>
 ```
 
 Copy
@@ -377,7 +374,7 @@ Copy
 For example, you can add **fifth** Non-validator client by executing the following command :
 
 ```
-zz-edge server --data-dir ./data-dir --chain genesis.json --libp2p 0.0.0.0:1478 --nat<public_or_private_ip>
+polygon-edge server --data-dir ./data-dir --chain genesis.json --libp2p 0.0.0.0:1478 --nat<public_or_private_ip>
 ```
 
 Copy
@@ -399,7 +396,7 @@ The default value for the price limit is `0`, meaning it is not enforced at all 
 Example of using the `--price-limit` flag:
 
 ```
-z-edge server --price-limit 100000 ...
+polygon-edge server --price-limit 100000 ...
 ```
 
 Copy

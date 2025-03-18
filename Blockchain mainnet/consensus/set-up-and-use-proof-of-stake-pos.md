@@ -4,7 +4,7 @@
 
 This guide goes into detail on how to set up a Proof of Stake network with the EVMBuilder Edge, how to stake funds for nodes to become validators and how to unstake funds.
 
-It **highly encouraged** to read and go through the [Local Setup](../get-started/local-setup.md) / [Cloud Setup](../get-started/cloud-setup.md) sections, before going along with this PoS guide. These sections outline the steps needed to start a Proof of Authority (PoA) cluster with the EVMBuilder Edge.
+It **highly encouraged** to read and go through the [Local Setup](../../Blockchain%20mainnet/get-started/local-setup.md) / [Cloud Setup](https://alexwallace-organization.gitbook.io/alexwallace/get-started/cloud-setup) sections, before going along with this PoS guide. These sections outline the steps needed to start a Proof of Authority (PoA) cluster with the EVMBuilder Edge.
 
 Currently, there is no limit to the number of validators that can stake funds on the Staking Smart Contract.
 
@@ -16,14 +16,14 @@ It holds the necessary testing scripts, ABI files and most importantly the Staki
 
 ### Setting up an N node cluster
 
-Setting up a network with the EVMBuilder Edge is covered in the [Local Setup](../get-started/local-setup.md) / [Cloud Setup](../get-started/cloud-setup.md) sections.
+Setting up a network with the EVMBuilder Edge is covered in the [Local Setup](../../Blockchain%20mainnet/get-started/local-setup.md) / [Cloud Setup](../get-started/cloud-setup.md) sections.
 
 The **only difference** between setting up a PoS and PoA cluster is in the genesis generation part.
 
 **When generating the genesis file for a PoS cluster, an additional flag is needed `--pos`**:
 
 ```
-z-edge genesis --pos ...
+polygon-edge genesis --pos ...
 ```
 
 ### Setting the length of an epoch
@@ -33,7 +33,7 @@ Epochs are covered in detail in the [Epoch Blocks](proof-of-stake.md) section.
 To set the size of an epoch for a cluster (in blocks), when generating the genesis file, an additional flag is specified `--epoch-size`:
 
 ```
--edge genesis --epoch-size 50
+polygon-edge genesis --epoch-size 50
 ```
 
 This value specified in the genesis file that the epoch size should be `50` blocks.

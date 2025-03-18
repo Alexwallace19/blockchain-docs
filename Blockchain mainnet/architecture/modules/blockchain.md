@@ -1,8 +1,8 @@
 # Blockchain
 
 ### Overview
-One of the main modules of the EVMBuilder Edge are **Blockchain** and **State**.\
 
+One of the main modules of the EVMBuilder Edge are **Blockchain** and **State**.
 
 **Blockchain** is the powerhouse that deals with block reorganizations. This means that it deals with all the logic that happens when a new block is included in the blockchain.
 
@@ -21,6 +21,7 @@ For example, when the **Blockchain** layer receives a new block (and no reorgani
 In one sentence, **it is the main core of logic through which all blocks are included**.
 
 ### _WriteBlocks_
+
 One of the most important parts relating to the **Blockchain** layer is the _WriteBlocks_ method:
 
 blockchain/blockchain.go

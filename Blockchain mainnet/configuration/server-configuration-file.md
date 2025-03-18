@@ -11,13 +11,13 @@ The configuration with default settings for the EVMBuilder Edge server can be ex
 To generate the config file in `yaml` format:
 
 ```
-z-edge server export --type yaml
+polygon-edge server export --type yaml
 ```
 
 or just
 
 ```
-z-edge server export
+polygon-edge server export
 ```
 
 the config file named `default-config.yaml` will be created in the same directory that this command has been run from.
@@ -59,7 +59,7 @@ log_to: ""
 To generate the config file in `json` format:
 
 ```
-z-edge server export --type json
+polygon-edge server export --type json
 ```
 
 the config file named `default-config.json` will be created in the same directory that this command has been run from.

@@ -20,7 +20,7 @@ This article details the necessary steps to get the EVMBuilder Edge up and runni
 {% hint style="warning" %}
 **PREVIOUS GUIDES**
 
-It is **highly recommended** that before going through this article, articles on [**Local Setup**] and [**Cloud Setup**] are read.
+It is **highly recommended** that before going through this article, articles on \[**Local Setup**] and \[**Cloud Setup**] are read.
 {% endhint %}
 
 ### Prerequisites
@@ -62,7 +62,7 @@ In order for the EVMBuilder Edge to be able to seamlessly communicate with the A
 To generate the configuration, run the following command:
 
 ```
-z-edge secrets generate --type aws-ssm --dir <PATH> --name <NODE_NAME> --extra region=<REGION>,ssm-parameter-path=<SSM_PARAM_PATH>
+poly-edge secrets generate --type aws-ssm --dir <PATH> --name <NODE_NAME> --extra region=<REGION>,ssm-parameter-path=<SSM_PARAM_PATH>
 ```
 
 Parameters present:
@@ -87,7 +87,7 @@ Secrets are stored on the following base path: `SSM_PARAM_PATH/NODE_NAME`
 Now that the configuration file is present, we can initialize the required secret keys with the configuration file set up in step 1, using the `--config`:
 
 ```
-zz-edge secrets init --config <PATH>
+polygon-edge secrets init --config <PATH>
 ```
 
 The `PATH` param is the location of the previously generated secrets manager param from step 1.
@@ -100,12 +100,12 @@ This step will fail if IAM Policy that allows read/write operations is not confi
 
 ### Step 3 - Generate the genesis file
 
-The genesis file should be generated in a similar manner to the [**Local Setup**](../../get-started/local-setup.md) and [**Cloud Setup**](../../get-started/cloud-setup.md) guides, with minor changes.
+The genesis file should be generated in a similar manner to the [**Local Setup**](../../../Blockchain%20mainnet/get-started/local-setup.md) and [**Cloud Setup**](../../get-started/cloud-setup.md) guides, with minor changes.
 
 Since AWS SSM is being used instead of the local file system, validator addresses should be added through the `--ibft-validator` flag:
 
 ```
-z-edge genesis --ibft-validator <VALIDATOR_ADDRESS> ...
+polygon-edge genesis --ibft-validator <VALIDATOR_ADDRESS> ...
 ```
 
 ### Step 4 - Start the EVMBuilder Edge client
@@ -115,7 +115,7 @@ Now that the keys are set up, and the genesis file is generated, the final step 
 The `server` command is used in the same manner as in the previously mentioned guides, with a minor addition - the `--secrets-config` flag:
 
 ```
-z-edge server --secrets-config <PATH> ...
+polygon-edge server --secrets-config <PATH> ...
 ```
 
 The `PATH` param is the location of the previously generated secrets manager param from step 1.
